@@ -1,5 +1,10 @@
 package dev.ecom.EcomProductService.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FakeStoreProductResponseDTO {
 
     //make sure the attribute names matches the key values in response
