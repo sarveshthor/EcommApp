@@ -6,7 +6,6 @@ import dev.ecom.EcomProductService.entity.Product;
 public class ProductEntityDTOMapper {
     public static ProductResponseDTO convertProductEntityToProductResponseDTO(Product product){
         ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-        productResponseDTO.setProductId(product.getProductId());
         productResponseDTO.setCategory(product.getCategory());
         productResponseDTO.setRating(product.getRating());
         productResponseDTO.setPrice(product.getPrice());

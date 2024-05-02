@@ -17,4 +17,12 @@ public class CartControllerExceptionHandler {
         );
         return new ResponseEntity<>(exceptionResponseDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(TestException.class)
+    public ResponseEntity handleTestException(TestException p){
+        ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
+                p.getMessage(), 404
+        );
+        return new ResponseEntity<>(exceptionResponseDTO, HttpStatus.NOT_FOUND);
+    }
 }

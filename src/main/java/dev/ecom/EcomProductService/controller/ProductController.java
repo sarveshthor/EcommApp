@@ -3,12 +3,12 @@ package dev.ecom.EcomProductService.controller;
 import dev.ecom.EcomProductService.dto.FakeStoreProductResponseDTO;
 import dev.ecom.EcomProductService.entity.Product;
 import dev.ecom.EcomProductService.exception.InvalidInputException;
+import dev.ecom.EcomProductService.exception.TestException;
 import dev.ecom.EcomProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    @Qualifier("productServiceImpl")
     private ProductService productService;//fieldInjection
 
     @GetMapping("/product")
@@ -31,5 +32,20 @@ public class ProductController {
         }
         FakeStoreProductResponseDTO product = productService.getProduct(id);
         return ResponseEntity.ok(product);
+    }
+
+    //testAPI
+    @GetMapping("/productController")
+    public ResponseEntity testAPI(){
+        if(true){
+            throw new TestException("product controller test exception");
+        }
+        return ResponseEntity.ok("Call successful");
+    }
+
+    @PostMapping("/createProduct")
+    public ResponseEntity createProductAPI(@RequestBody Product product){
+        Product p = productService.createProduct(product);
+        return ResponseEntity.ok(p);
     }
 }

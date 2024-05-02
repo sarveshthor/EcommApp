@@ -34,4 +34,12 @@ public class ProductServiceExceptionHandler {
         return new ResponseEntity<>(exceptionResponseDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(TestException.class)
+    public ResponseEntity handleTestException(TestException p){
+        ExceptionResponseDTO exceptionResponseDTO = new ExceptionResponseDTO(
+                p.getMessage(), 404
+        );
+        return new ResponseEntity<>(exceptionResponseDTO, HttpStatus.NOT_FOUND);
+    }
+
 }
