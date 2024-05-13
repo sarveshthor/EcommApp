@@ -1,6 +1,7 @@
 package dev.ecom.EcomProductService.controller;
 
-import dev.ecom.EcomProductService.dto.FakeStoreProductResponseDTO;
+import dev.ecom.EcomProductService.dto.CreateProductRequestDTO;
+import dev.ecom.EcomProductService.dto.ProductResponseDTO;
 import dev.ecom.EcomProductService.entity.Product;
 import dev.ecom.EcomProductService.exception.InvalidInputException;
 import dev.ecom.EcomProductService.exception.TestException;
@@ -11,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
+//Use @RequestMapping("/{URL}") for making it as a base to all the APIs in the product controller
 public class ProductController {
 
     @Autowired
@@ -20,21 +23,21 @@ public class ProductController {
     private ProductService productService;//fieldInjection
 
     @GetMapping("/product")
-    public ResponseEntity getAllProducts(){
-        List<FakeStoreProductResponseDTO> products = productService.getAllProducts();
+    public ResponseEntity<List<ProductResponseDTO>> getAllProducts(){
+        List<ProductResponseDTO> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity getProductById(@PathVariable("id") int id){
-        if(id < 1){
-            throw new InvalidInputException("Id should be greater than 0");
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable("id") UUID id){
+        if(id == null){
+            throw new InvalidInputException("Id cannot be null");
         }
-        FakeStoreProductResponseDTO product = productService.getProduct(id);
+        ProductResponseDTO product = productService.getProduct(id);
         return ResponseEntity.ok(product);
     }
 
-    //testAPI
+    //testAPI - used for demo of controller advice
     @GetMapping("/productController")
     public ResponseEntity testAPI(){
         if(true){
@@ -44,8 +47,23 @@ public class ProductController {
     }
 
     @PostMapping("/createProduct")
-    public ResponseEntity createProductAPI(@RequestBody Product product){
-        Product p = productService.createProduct(product);
-        return ResponseEntity.ok(p);
+    public ResponseEntity<ProductResponseDTO> createProductAPI(@RequestBody CreateProductRequestDTO productRequestDTO){
+        return ResponseEntity.ok(productService.createProduct(productRequestDTO));
+    }
+
+    @PutMapping("/updateProduct/{id}")
+    public ResponseEntity<ProductResponseDTO> updateProductAPI(@PathVariable("id") UUID id , @RequestBody CreateProductRequestDTO productRequestDTO){
+        ProductResponseDTO updatedProduct = productService.updateProduct(productRequestDTO, id);
+        return ResponseEntity.ok(updatedProduct);
+    }
+
+    @DeleteMapping("/deleteProduct/{id}")
+    public ResponseEntity<Boolean> deleteProductAPI(@PathVariable("id") UUID id){
+        return ResponseEntity.ok(productService.deleteProduct(id));
+    }
+
+    @GetMapping("/getProductByPrice/{minPrice}/{maxPrice}")
+    public ResponseEntity getProductByPriceRange(@PathVariable double minPrice, @PathVariable double maxPrice){
+        return ResponseEntity.ok(productService.getProducts(minPrice, maxPrice));
     }
 }

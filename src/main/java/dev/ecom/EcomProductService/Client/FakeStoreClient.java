@@ -1,9 +1,7 @@
 package dev.ecom.EcomProductService.Client;
 
-import dev.ecom.EcomProductService.dto.FakeStoreCartResponseDTO;
-import dev.ecom.EcomProductService.dto.FakeStoreProductResponseDTO;
-import dev.ecom.EcomProductService.entity.Product;
-import org.apache.coyote.Response;
+import dev.ecom.EcomProductService.dto.fakeStoreDTO.FakeStoreCartResponseDTO;
+import dev.ecom.EcomProductService.dto.fakeStoreDTO.FakeStoreProductResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;

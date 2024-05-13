@@ -1,10 +1,8 @@
-package dev.ecom.EcomProductService.dto;
+package dev.ecom.EcomProductService.dto.fakeStoreDTO;
 
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

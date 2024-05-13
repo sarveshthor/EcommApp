@@ -1,4 +1,4 @@
-package dev.ecom.EcomProductService.dto;
+package dev.ecom.EcomProductService.dto.fakeStoreDTO;
 
 import lombok.Getter;
 import lombok.Setter;
